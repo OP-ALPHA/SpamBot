@@ -92,7 +92,7 @@ async def get_users(event):
 
 
 @gladiator(pattern="^/add(?: |$)(.*)")
-@gladiator(sudo_cmd(pattern="^/add(?: |$)(.*)"", allow_sudo=True))
+@gladiator(sudo_cmd(pattern="^/add(?: |$)(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
