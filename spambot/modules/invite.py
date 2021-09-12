@@ -54,32 +54,33 @@ def user_full_name(user):
     return full_name
 
 
-@bot.on(hell_cmd(pattern=r"inviteall ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"inviteall ?(.*)", allow_sudo=True))
+
+@gladiator(pattern="^/invite(?: |$)(.*)")
+@gladiator(sudo_cmd(pattern="^/invite(?: |$)(.*)", allow_sudo=True))
 async def get_users(event):
-    hel_ = event.text[11:]
-    hell_chat = hel_.lower()
-    restricted = ["@hellbot_chat", "@its_hellbot"]
-    hell = await eor(event, f"__Inviting members from__ {hel_}")
-    if hell_chat in restricted:
-        await hell.edit("You can't Invite Members from there.")
-        await bot.send_message(-1001496036895, "Sorry for inviting members from here.")
+    spam_ = event.text[11:]
+    spam_chat = spam_.lower()
+    restricted = ["@MEMEKJSJKSK"]
+    spam = await eor(event, f"__Inviting members from__ {spam_}")
+    if spam_chat in restricted:
+        await event.reply("You can't Invite Members from there.")
+        await bot.send_message(-1001461552915, "Sorry for inviting members from here.")
         return
     kraken = await get_chatinfo(event)
     chat = await event.get_chat()
     if event.is_private:
-        return await hell.edit("`Sorry, Cant add users here`")
+        await event.reply("`Sorry, Cant add users here`")
     s = 0
     f = 0
     error = "None"
-    await hell.edit("**INVITING USERS !!**")
+    await event.reply("**INVITING USERS !!**")
     async for user in bot.iter_participants(kraken.full_chat.id):
         try:
             await bot(
                 InviteToChannelRequest(channel=chat, users=[user.id])
             )
             s = s + 1
-            await hell.edit(
+            await event.reply(
                 f"**INVITING USERS.. **\n\n**Invited :**  `{s}` users \n**Failed to Invite :**  `{f}` users.\n\n**×Error :**  `{error}`"
             )
         except Exception as e:
@@ -90,8 +91,8 @@ async def get_users(event):
     )
 
 
-@bot.on(hell_cmd(pattern=r"add ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"add ?(.*)", allow_sudo=True))
+@gladiator(pattern="^/add(?: |$)(.*)")
+@gladiator(sudo_cmd(pattern="^/add(?: |$)(.*)"", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
